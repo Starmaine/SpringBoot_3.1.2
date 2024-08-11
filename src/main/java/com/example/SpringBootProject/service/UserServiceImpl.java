@@ -2,13 +2,14 @@ package com.example.SpringBootProject.service;
 
 import com.example.SpringBootProject.dao.UserDao;
 import com.example.SpringBootProject.model.User;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
 
 
@@ -19,13 +20,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         userDao.save(user);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
-//        User userToDelete = userDao.findById(id).orElseThrow(() -> new RuntimeException("can't find user for removal"));
 
         try {
             userDao.delete(id);
@@ -36,16 +38,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void update(User newUser) {
         userDao.update(newUser);
     }
 
     @Override
+    @Transactional
     public User findById(int id) {
         return userDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public List<User> getAllUsers() {
         return userDao.findAll();
     }
